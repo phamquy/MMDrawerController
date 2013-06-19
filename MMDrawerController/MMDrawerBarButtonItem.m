@@ -21,6 +21,7 @@
 
 #import "MMDrawerBarButtonItem.h"
 
+
 @interface MMDrawerMenuButtonView : UIButton
 @property (nonatomic,strong) UIColor * menuButtonNormalColor;
 @property (nonatomic,strong) UIColor * menuButtonHighlightedColor;
@@ -35,7 +36,9 @@
 -(void)setShadowColor:(UIColor *)color forState:(UIControlState)state;
 
 @end
-
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+#pragma mark -
 @implementation MMDrawerMenuButtonView
 
 -(id)initWithFrame:(CGRect)frame{
@@ -52,7 +55,7 @@
     }
     return self;
 }
-
+//------------------------------------------------------------------------------
 -(UIColor *)menuButtonColorForState:(UIControlState)state{
     UIColor * color;
     switch (state) {
@@ -67,7 +70,7 @@
     }
     return color;
 }
-
+//------------------------------------------------------------------------------
 -(void)setMenuButtonColor:(UIColor *)color forState:(UIControlState)state{
     switch (state) {
         case UIControlStateNormal:
@@ -81,7 +84,7 @@
     }
     [self setNeedsDisplay];
 }
-
+//------------------------------------------------------------------------------
 -(UIColor *)shadowColorForState:(UIControlState)state{
     UIColor * color;
     switch (state) {
@@ -97,6 +100,7 @@
     return color;
 }
 
+//------------------------------------------------------------------------------
 -(void)setShadowColor:(UIColor *)color forState:(UIControlState)state{
     switch (state) {
         case UIControlStateNormal:
@@ -111,6 +115,7 @@
     [self setNeedsDisplay];
 }
 
+//------------------------------------------------------------------------------
 -(void)drawRect:(CGRect)rect{
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -133,7 +138,13 @@
     CGFloat shadowBlurRadius = 0;
     
     //// Top Bun Drawing
-    UIBezierPath* topBunPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight) cornerRadius:cornerRadius];
+    UIBezierPath* topBunPath = [UIBezierPath
+                                bezierPathWithRoundedRect:CGRectMake(xOffset,
+                                                                     yOffset,
+                                                                     buttonWidth,
+                                                                     buttonHeight)
+                                cornerRadius:cornerRadius];
+    
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
     [buttonColor setFill];
@@ -156,42 +167,51 @@
     [bottomBunPath fill];
     CGContextRestoreGState(context);
 }
-
+//------------------------------------------------------------------------------
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self setNeedsDisplay];
 }
-
+//------------------------------------------------------------------------------
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     [super touchesEnded:touches withEvent:event];
     [self setNeedsDisplay];
 }
-
+//------------------------------------------------------------------------------
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
     [super touchesCancelled:touches withEvent:event];
     [self setNeedsDisplay];
 }
-
+//------------------------------------------------------------------------------
 - (void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     [self setNeedsDisplay];
 }
-
+//------------------------------------------------------------------------------
 - (void)setHighlighted:(BOOL)highlighted{
     [super setHighlighted:highlighted];
     [self setNeedsDisplay];
 }
 @end
 
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+#pragma mark -
 @interface MMDrawerBarButtonItem ()
 @property (nonatomic,strong) MMDrawerMenuButtonView * buttonView;
 
 @end
 
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+#pragma mark -
 @implementation MMDrawerBarButtonItem
 
 -(id)initWithTarget:(id)target action:(SEL)action{
-    MMDrawerMenuButtonView * buttonView = [[MMDrawerMenuButtonView alloc] initWithFrame:CGRectMake(0, 0, 26, 26)];
+    
+    MMDrawerMenuButtonView * buttonView =
+        [[MMDrawerMenuButtonView alloc] initWithFrame:CGRectMake(0, 0, 26, 26)];
+    
     [buttonView addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     self = [self initWithCustomView:buttonView];
     if(self){
@@ -199,19 +219,19 @@
     }
     return self;
 }
-
+//------------------------------------------------------------------------------
 -(UIColor *)menuButtonColorForState:(UIControlState)state{
     return [self.buttonView menuButtonColorForState:state];
 }
-
+//------------------------------------------------------------------------------
 -(void)setMenuButtonColor:(UIColor *)color forState:(UIControlState)state{
     [self.buttonView setMenuButtonColor:color forState:state];
 }
-
+//------------------------------------------------------------------------------
 -(UIColor *)shadowColorForState:(UIControlState)state{
     return [self.buttonView shadowColorForState:state];
 }
-
+//------------------------------------------------------------------------------
 -(void)setShadowColor:(UIColor *)color forState:(UIControlState)state{
     [self.buttonView setShadowColor:color forState:state];
 }
