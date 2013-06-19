@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger, MMCenterViewControllerSection){
     MMCenterViewControllerSectionLeftDrawerAnimation,
     MMCenterViewControllerSectionRightViewState,
     MMCenterViewControllerSectionRightDrawerAnimation,
+    MMCenterViewControllerSectionTest
 };
 
 @interface MMExampleCenterTableViewController ()
@@ -69,11 +70,11 @@ typedef NS_ENUM(NSInteger, MMCenterViewControllerSection){
     [self setupLeftMenuButton];
     [self setupRightMenuButton];
     
-    [self.navigationController.navigationBar setTintColor:[UIColor
-                                                           colorWithRed:78.0/255.0
-                                                           green:156.0/255.0
-                                                           blue:206.0/255.0
-                                                           alpha:1.0]];
+    [self.navigationController.navigationBar
+     setTintColor:[UIColor colorWithRed:78.0/255.0
+                                  green:156.0/255.0
+                                   blue:206.0/255.0
+                                  alpha:1.0]];
     
     
     MMLogoView * logo = [[MMLogoView alloc] initWithFrame:CGRectMake(0, 0, 29, 31)];
@@ -110,12 +111,18 @@ typedef NS_ENUM(NSInteger, MMCenterViewControllerSection){
 }
 
 -(void)setupLeftMenuButton{
-    MMDrawerBarButtonItem * leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(leftDrawerButtonPress:)];
+    MMDrawerBarButtonItem * leftDrawerButton = [[MMDrawerBarButtonItem alloc]
+                                                initWithTarget:self
+                                                action:@selector(leftDrawerButtonPress:)];
+    
     [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
 }
 
 -(void)setupRightMenuButton{
-    MMDrawerBarButtonItem * rightDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(rightDrawerButtonPress:)];
+    MMDrawerBarButtonItem * rightDrawerButton = [[MMDrawerBarButtonItem alloc]
+                                                 initWithTarget:self
+                                                 action:@selector(rightDrawerButtonPress:)];
+    
     [self.navigationItem setRightBarButtonItem:rightDrawerButton animated:YES];
 }
 
@@ -123,7 +130,7 @@ typedef NS_ENUM(NSInteger, MMCenterViewControllerSection){
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -135,6 +142,8 @@ typedef NS_ENUM(NSInteger, MMCenterViewControllerSection){
             return 5;
         case MMCenterViewControllerSectionLeftViewState:
         case MMCenterViewControllerSectionRightViewState:
+            return 1;
+        case MMCenterViewControllerSectionTest:
             return 1;
         default:
             return 0;
@@ -227,6 +236,10 @@ typedef NS_ENUM(NSInteger, MMCenterViewControllerSection){
             }
             break;
         }
+        case MMCenterViewControllerSectionTest:{
+            [cell.textLabel setText:@"Test"];
+            break;
+        }
         default:
             break;
     }
@@ -244,6 +257,8 @@ typedef NS_ENUM(NSInteger, MMCenterViewControllerSection){
             return @"Left Drawer";
         case MMCenterViewControllerSectionRightViewState:
             return @"Right Drawer";
+        case MMCenterViewControllerSectionTest:
+            return @"Test";
         default:
             return nil;
             break;
@@ -340,6 +355,11 @@ typedef NS_ENUM(NSInteger, MMCenterViewControllerSection){
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
             
+            break;
+        }
+        case MMCenterViewControllerSectionTest:{
+            UIViewController* viewController = [[UIViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
             break;
         }
         default:

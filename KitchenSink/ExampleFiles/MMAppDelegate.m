@@ -50,7 +50,10 @@
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     
     [drawerController
-     setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
+     setDrawerVisualStateBlock:^(MMDrawerController *drawerController,
+                                 MMDrawerSide drawerSide,
+                                 CGFloat percentVisible)
+    {
          MMDrawerControllerDrawerVisualStateBlock block;
          block = [[MMExampleDrawerVisualStateManager sharedManager]
                         drawerVisualStateBlockForDrawerSide:drawerSide];

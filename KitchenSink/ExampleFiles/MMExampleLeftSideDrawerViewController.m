@@ -80,8 +80,13 @@
          setMaximumLeftDrawerWidth:[self.drawerWidths[indexPath.row] floatValue]
          animated:YES
          completion:^(BOOL finished) {
-             [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
-             [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+             [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]
+                      withRowAnimation:UITableViewRowAnimationNone];
+             
+             [tableView selectRowAtIndexPath:indexPath
+                                    animated:NO
+                              scrollPosition:UITableViewScrollPositionNone];
+             
              [tableView deselectRowAtIndexPath:indexPath animated:YES];
          }];
 
